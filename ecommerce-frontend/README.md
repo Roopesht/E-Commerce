@@ -1,70 +1,172 @@
-# Getting Started with Create React App
+# E-Commerce Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack e-commerce application built with **FastAPI** backend and **React** frontend.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+This project is a complete e-commerce solution featuring:
+
+- **Backend**: FastAPI with MongoDB database, multiple routers for API endpoints
+- **Frontend**: React with component-based architecture
+- **Features**: User authentication, product browsing, shopping cart, order management
+
+## Tech Stack
+
+### Backend
+
+- **Framework**: FastAPI
+- **Database**: MongoDB
+- **Language**: Python
+- **Features**: CORS middleware, JWT authentication, RESTful API routing
+
+### Frontend
+
+- **Framework**: React
+- **Styling**: CSS
+- **Package Manager**: npm
+
+## Project Structure
+
+```
+E-Commerce/
+├── ecommerce-backend/
+│   ├── main.py              # FastAPI application entry point
+│   ├── database.py          # MongoDB connection configuration
+│   ├── models/
+│   │   ├── schemas.py       # Pydantic data models
+│   │   └── user.py          # User model definitions
+│   └── routes/
+│       ├── auth.py          # Authentication endpoints
+│       ├── products.py      # Product endpoints
+│       ├── cart.py          # Shopping cart endpoints
+│       └── orders.py        # Order management endpoints
+│
+└── ecommerce-frontend/
+    ├── src/
+    │   ├── App.js           # Main React component
+    │   ├── components/
+    │   │   ├── Login.js     # Login page
+    │   │   ├── Register.js  # User registration
+    │   │   ├── Products.js  # Product listing
+    │   │   ├── ProductDetails.js
+    │   │   ├── Cart.js      # Shopping cart
+    │   │   └── Orders.js    # Order history
+    │   ├── App.css
+    │   └── index.js
+    └── package.json
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- Node.js (v14 or higher)
+- MongoDB running locally or connection string configured
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+
+   ```bash
+   cd ecommerce-backend
+   ```
+
+2. Install Python dependencies:
+
+   ```bash
+   pip install fastapi uvicorn pymongo python-jose passlib python-multipart
+   ```
+
+3. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   The backend will be available at `http://localhost:8000`
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+
+   ```bash
+   cd ecommerce-frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+   The frontend will open at `http://localhost:3000`
+
+## Available Frontend Scripts
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view in your browser.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production in the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## API Endpoints
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Authentication Routes (`/auth`)
 
-### `npm run eject`
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login
+- `POST /auth/logout` - User logout
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Product Routes
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `GET /products` - Get all products
+- `GET /products/{id}` - Get product details
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Cart Routes (`/cart`)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- `GET /cart` - View cart items
+- `POST /cart/add` - Add item to cart
+- `DELETE /cart/{item_id}` - Remove item from cart
 
-## Learn More
+### Order Routes (`/orders`)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `GET /orders` - Get user orders
+- `POST /orders/create` - Create new order
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Features Implemented
 
-### Code Splitting
+- User Authentication & Registration
+- Product Catalog Management
+- Shopping Cart Functionality
+- Order Management
+- MongoDB Database Integration
+- CORS Support
+- RESTful API Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Future Enhancements
 
-### Analyzing the Bundle Size
+- Payment gateway integration
+- Product search and filtering
+- User review and rating system
+- Admin dashboard
+- Email notifications
+- Inventory management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Troubleshooting
 
-### Making a Progressive Web App
+- **MongoDB Connection Error**: Ensure MongoDB is running and connection string is correct
+- **CORS Issues**: Backend is configured to accept requests from `http://localhost:3000`
+- **Port Already in Use**: Change the port in FastAPI or React configuration if needed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## License
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is open source and available for learning purposes.
