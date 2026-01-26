@@ -9,6 +9,27 @@ function Register( { onRegisterSuccess }) {
     const [ password, setPassword ] = useState('');
     const [ confirmpassword, setConfirmpassword] = useState('');
 
+    const handleRegister = async () => {
+        const response = await fetch('http://127.0.0.1:8000/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstname, lastname, mobilenumber, username, password
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Registration Successful');
+            onRegisterSuccess();
+        } else {
+            alert(data.detail || 'Registeration failed');
+        }
+    };
+
     return(
         <div>
             <h2>Register</h2>
@@ -37,7 +58,7 @@ function Register( { onRegisterSuccess }) {
                 <input type="text" value ={confirmpassword} onChange = {(e) => setConfirmpassword(e.target.value)}></input>
             </div>
 
-            <button onClick={onRegisterSuccess}>Register</button>
+            <button onClick={handleRegister}>Register</button>
         </div>
     );
 }
