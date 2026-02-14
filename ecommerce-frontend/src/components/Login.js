@@ -5,6 +5,18 @@ function Login({ onLoginSuccess }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const getErrorMessage = (detail) => {
+        if (!detail) return null;
+        if (typeof detail === 'string') return detail;
+        if (Array.isArray(detail)) {
+            return detail
+                .map((e) => (typeof e?.msg === 'string' ? e.msg : JSON.stringify(e)))
+                .join('\n');
+        }
+        return typeof detail?.message === 'string' ? detail.message : JSON.stringify(detail);
+    };
+
+    // need to change the URL since backend is running on different port and i deployed with firebase
     const handleLogin = async () => {
         const response = await fetch('http://127.0.0.1:8000/auth/login', {
             method: 'POST',
@@ -22,7 +34,7 @@ function Login({ onLoginSuccess }) {
             alert('Login Successful');
             onLoginSuccess(username);
     } else {
-        alert(data.detail || 'Login failed');
+        alert(getErrorMessage(data?.detail) || 'Login failed');
     }
 };
 

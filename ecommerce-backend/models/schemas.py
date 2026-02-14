@@ -6,6 +6,7 @@ class RegisterRequest(BaseModel):
     mobilenumber: str
     username: str
     password: str
+    confirm_password: str
 
 class RegisterResponse(BaseModel):
     message: str
@@ -16,6 +17,13 @@ class LoginRequest(BaseModel):
 
 class ProductResponse(BaseModel):
     id: str
+    name: str
+    description: str
+    price: float
+    image_url: str
+    stock: int
+
+class ADDPRODUCTRequest(BaseModel):
     name: str
     description: str
     price: float

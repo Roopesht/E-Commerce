@@ -9,6 +9,17 @@ function Register( { onRegisterSuccess }) {
     const [ password, setPassword ] = useState('');
     const [ confirmpassword, setConfirmpassword] = useState('');
 
+    const getErrorMessage = (detail) => {
+        if (!detail) return null;
+        if (typeof detail === 'string') return detail;
+        if (Array.isArray(detail)) {
+            return detail
+                .map((e) => (typeof e?.msg === 'string' ? e.msg : JSON.stringify(e)))
+                .join('\n');
+        }
+        return typeof detail?.message === 'string' ? detail.message : JSON.stringify(detail);
+    };
+
     const handleRegister = async () => {
         const response = await fetch('http://127.0.0.1:8000/auth/register', {
             method: 'POST',
@@ -16,7 +27,12 @@ function Register( { onRegisterSuccess }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstname, lastname, mobilenumber, username, password
+                firstname,
+                lastname,
+                mobilenumber,
+                username,
+                password,
+                confirm_password: confirmpassword,
             })
         });
 
@@ -26,7 +42,7 @@ function Register( { onRegisterSuccess }) {
             alert('Registration Successful');
             onRegisterSuccess();
         } else {
-            alert(data.detail || 'Registeration failed');
+            alert(getErrorMessage(data?.detail) || 'Registeration failed');
         }
     };
 

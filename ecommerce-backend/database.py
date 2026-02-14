@@ -1,6 +1,7 @@
-from pymongo import MongoClient
+# MongoDB connection removed — now using Firestore.
+# All database operations are handled via firestore.py
+#
+# Import usage:
+#   from firestore import db, get_document, add_document, etc.
 
-MONGO_URI = "mongodb://localhost:27017/"
-client = MongoClient(MONGO_URI)
-
-db = client["ecommerce_db"]
+from firestore import db

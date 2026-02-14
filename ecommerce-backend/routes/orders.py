@@ -1,20 +1,18 @@
 from fastapi import APIRouter, HTTPException
-from database import db
+from firestore import get_document, add_document, delete_document, query_documents
 
 router = APIRouter()
-orders_collection = db["orders"]
-cart_collection = db["carts"]
 
 
-@router.post("orders/place")
-def place_order(data:dict):
+@router.post("/orders/place")
+def place_order(data: dict):
     username = data["username"]
 
-    cart = cart_collection.find_one({"username": username})
+    cart = get_document("carts", username)
 
     if not cart or not cart.get("items"):
         raise HTTPException(status_code=400, detail="Cart is empty")
-    
+
     total_amount = sum(
         item["price"] * item["quantity"] for item in cart["items"]
     )
@@ -26,22 +24,23 @@ def place_order(data:dict):
         "status": "PLACED"
     }
 
-    orders_collection.insert_one(order)
+    add_document("orders", order)
 
-    # clear cart after order
-    cart_collection.delete_one({"username": username})
+    # Clear cart after order
+    delete_document("carts", username)
 
     return {"message": "Order placed successfully"}
 
+
 @router.get("/orders/{username}")
 def get_orders(username: str):
-    orders =[]
-
-    for order in orders_collection.find({"username": username}):
-        orders.append({
-            "id": str(order["_id"]),
+    order_docs = query_documents("orders", "username", "==", username)
+    return [
+        {
+            "id": order["id"],
             "items": order["items"],
             "total_amount": order["total_amount"],
             "status": order["status"]
-        })
-    return orders
+        }
+        for order in order_docs
+    ]

@@ -10,13 +10,17 @@ def hash_password(password:str) -> str:
 def verify_password(plain_password:str, hashed_password:str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
+def confirm_passwords(password:str, confirm_password:str) -> bool:
+    return password == confirm_password
+
 
 def create_user_document(
         firstname: str,
         lastname:str,
         mobilenumber:str,
         username:str,
-        password:str
+        password:str,
+        confirm_password:str
 ) -> dict:
     return {
         "firstname": firstname,
