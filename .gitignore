@@ -70,3 +70,7 @@ serviceAccountKey.json
 
 # dataconnect generated files
 .dataconnect
+
+venv/
+*.pyc
+__pycache__/

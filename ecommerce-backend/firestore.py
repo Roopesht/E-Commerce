@@ -5,7 +5,7 @@ from firebase_admin import credentials, firestore
 # Initialize Firebase Admin SDK
 cred = credentials.Certificate(os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "serviceAccountKey.json"))
 firebase_admin.initialize_app(cred, {
-    "projectId": os.getenv("FIREBASE_PROJECT_ID", "react-deploy-d9306")
+    "projectId": os.getenv("FIREBASE_PROJECT_ID", "test-99u1b3")
 })
 
 # Firestore client
