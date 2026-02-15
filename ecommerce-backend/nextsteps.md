@@ -8,7 +8,13 @@ docker run -p 8080:8080 ecommerce:latest
 docker tag ecommerce:latest roopesht/ecommerce:latest
 
 ## Push
-docker push roopesht/ecommerce:latest                
+docker push roopesht/ecommerce:latest
 
 ## The image name 
 docker.io/roopesht/ecommerce:latest
+
+## Deploy to Cloud Run (directly from source code)
+gcloud run deploy ecommerce-backend --source . --region asia-south1 --allow-unauthenticated
+
+ https://ecommerce-backend-58836973066.asia-south1.run.app
+ 
